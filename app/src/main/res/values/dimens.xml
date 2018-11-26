@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_image_padding">19dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="icon_height">56dp</dimen>
+    <dimen name="icon_width">56dp</dimen>
+    <dimen name="table_header_height">30dp</dimen>
+    <dimen name="action_bar_height">56dp</dimen>
+</resources>

@@ -1,7 +1,5 @@
 package com.android.salesmanager.models;
-//Nguyen Mau Cong Trinh
-//v3
-//Thoi gian hoan thanh: 4/10/18
+
 import java.io.Serializable;
 
 public class SanPham implements Serializable {
@@ -16,10 +14,10 @@ public class SanPham implements Serializable {
     private double sl;
     private double slNhap;
     private double slTon;
+    private double slBanRa;
     private double von;
     private double lai;
     private double tongThu;
-
     //Kho
     public SanPham(int stt, int id, String ma, String ten, double slNhap, double slTon, double giaNhap, double giaDeXuat) {
         this.stt = stt;
@@ -30,15 +28,6 @@ public class SanPham implements Serializable {
         this.slTon = slTon;
         this.giaDeXuat = giaDeXuat;
         this.giaNhap = giaNhap;
-    }
-
-    //Bang gia
-    public SanPham(int stt, int id, String ma, String ten, double giaDeXuat) {
-        this.stt = stt;
-        this.id = id;
-        this.ma = ma;
-        this.ten = ten;
-        this.giaDeXuat = giaDeXuat;
     }
 
     //Da ban
@@ -63,6 +52,13 @@ public class SanPham implements Serializable {
         this.lai = lai;
         this.von = von;
         this.thoiGian = thoiGian;
+    }
+    public SanPham(String ma,String ten,double slNhap,double giaNhap,double giaDeXuat){
+        this.ma=ma;
+        this.ten=ten;
+        this.slNhap=slNhap;
+        this.giaNhap=giaNhap;
+        this.giaDeXuat=giaDeXuat;
     }
 
     public int getStt() {
@@ -152,6 +148,10 @@ public class SanPham implements Serializable {
     public void setSlTon(double slTon) {
         this.slTon = slTon;
     }
+
+    public double getSlBanRa() { return slBanRa; }
+
+    public void setSlBanRa(double slBanRa) { this.slBanRa = slBanRa; }
 
     public double getVon() {
         return von;

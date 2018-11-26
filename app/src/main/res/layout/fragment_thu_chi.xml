@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.KhoFragment">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_left_top_header"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textTableHeader"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/layer_list_border_stt_header"
+                    android:gravity="center"
+                    android:text="@string/stt" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_stt"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <TextView
+                    style="@style/textTableHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layer_list_border_footer"
+                     />
+            </LinearLayout>
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/sv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_top_header"
+                    android:layout_width="670dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:background="@drawable/layer_list_border_item_header"
+                        style="@style/textTableHeader"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/ma_sp" />
+                    <TextView
+                        android:background="@drawable/layer_list_border_item_header"
+                        style="@style/textTableHeader"
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/ten_sp" />
+
+                    <TextView
+                        android:background="@drawable/layer_list_border_item_header"
+                        style="@style/textTableHeader"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/sl_ban_ra" />
+
+                    <TextView
+                        android:background="@drawable/layer_list_border_item_header"
+                        style="@style/textTableHeader"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/lai" />
+
+                    <TextView
+                        android:background="@drawable/layer_list_border_item_header"
+                        style="@style/textTableHeader"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/von" />
+
+                    <TextView
+                        android:background="@drawable/layer_list_border_item_header"
+                        style="@style/textTableHeader"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/tong_thu" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_bot_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:text="@string/tong"
+                        style="@style/textTableHeader"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/layer_list_border_footer" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/tv_tong_lai"
+                        style="@style/textTableHeader"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/layer_list_border_footer"
+                        android:text="@string/lai" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/tv_tong_von"
+                        style="@style/textTableHeader"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/layer_list_border_footer"
+                        android:text="@string/von" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/tv_tong_thu"
+                        style="@style/textTableHeader"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/layer_list_border_footer"
+                        android:text="@string/tong_thu" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+</FrameLayout>

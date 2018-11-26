@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/shape_bg_dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="0dp"
+        android:text="@string/nhap_them_san_pham"
+        android:textSize="18.0sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/nhap_so_luong_can_them"
+                android:textSize="14.0sp" />
+
+            <EditText
+                android:id="@id/edt_sl_nhap"
+                style="@style/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/nhap_so_luong"
+                android:imeOptions="actionDone"
+                android:inputType="numberSigned" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1.0px"
+        android:background="#ffcccccc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:background="#00000000"
+            android:text="@string/huy"
+            android:textColor="@drawable/dialog_button_cancel_tint_color"
+            android:textSize="16.0sp" />
+
+        <View
+            android:id="@id/v_divider"
+            android:layout_width="1.0px"
+            android:layout_height="match_parent"
+            android:background="#ffcccccc" />
+
+        <Button
+            android:id="@id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1.0"
+            android:background="#00000000"
+            android:text="@string/them"
+            android:textColor="@drawable/dialog_button_confirm_tint_color"
+            android:textSize="16.0sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MatKhauActivity" />
-        <activity android:name=".ThemActivity"></activity>
+        <activity android:name=".ThemSPKhoActivity" />
+        <activity android:name=".BanSPActivity" />
+        <activity android:name=".ChonSPActivity"></activity>
     </application>
 
 </manifest>

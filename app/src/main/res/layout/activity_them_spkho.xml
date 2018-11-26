@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:padding="@dimen/button_image_padding"
+                android:src="@drawable/ic_back"
+                android:tint="@color/white" />
+
+            <TextView
+                android:id="@id/title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@string/them_sp_vao_kho"
+                android:textColor="@color/white"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_them"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="@string/them"
+                android:textAllCaps="true"
+                android:textColor="@drawable/selector_top_bar_tint_color"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#ffb1b1b1" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_ma_sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/ma"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt_ma_sp"
+                    style="@style/edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:hint="@string/ma_sp"
+                    android:singleLine="true" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/iv_ma_sp_info"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_warning"
+                        android:tint="@color/red" />
+
+                    <TextView
+                        android:id="@+id/tv_ma_sp_info"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:text="Ma san pham da ton tai."
+                        android:textColor="@color/red"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_ten_sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/ten"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt_ten_sp"
+                    style="@style/edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:hint="@string/ten_sp"
+                    android:singleLine="true" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/iv_ten_sp_info"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_success"
+                        android:tint="#ff33691e" />
+
+                    <TextView
+                        android:id="@+id/tv_ten_sp_info"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:text="Co the su dung ten nay."
+                        android:textColor="#ff33691e"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/gia"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt_gia_nhap"
+                    style="@style/edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:hint="@string/gia_nhap"
+                    android:inputType="numberSigned"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="VND/SP"
+                    android:textColor="#ff616161"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/giadx"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt_gia_de_xuat"
+                    style="@style/edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:hint="@string/gia_de_xuat"
+                    android:inputType="numberSigned"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="VND/SP"
+                    android:textColor="#ff616161"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_so_luong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/sl"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edt_sl_nhap"
+                    style="@style/edittext"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:hint="@string/sl_nhap"
+                    android:inputType="numberSigned"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/san_pham"
+                    android:textColor="#ff616161"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
