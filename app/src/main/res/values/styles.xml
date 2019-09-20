@@ -19,11 +19,17 @@
     </style>
 
     <style name="edittext">
-        <item name="android:textSize">16.0sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">#ff111111</item>
         <item name="android:textColorHint">#ff9e9e9e</item>
         <item name="android:background">@drawable/selector_background_edittext</item>
         <item name="android:textCursorDrawable">@drawable/shape_cursor_edittext</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:background">@color/white</item>
     </style>
 
 </resources>

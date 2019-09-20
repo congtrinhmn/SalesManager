@@ -29,6 +29,7 @@ public class ThemSPKhoActivity extends AppCompatActivity implements View.OnClick
     private ImageView ivBack;
     private ImageView ivMaSPInfo;
     private ImageView ivTenSPInfo;
+    private TextView tvTitle;
     private TextView tvTenSPInfo;
     private TextView tvMaSPInfo;
     private LinearLayout llMaSP;
@@ -40,7 +41,6 @@ public class ThemSPKhoActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_spkho);
         database = new Database(this);
-        //database.themSPKho(new SanPham(1, 1, "M01", "Test", 1300, 680, 400043500, 4003000));
 
         this.editMode = getIntent().getBooleanExtra(EXTRA_EDITMODE, false);
         if (this.editMode) {
@@ -48,6 +48,7 @@ public class ThemSPKhoActivity extends AppCompatActivity implements View.OnClick
         }
         initView();
         if (this.editMode) {
+            this.tvTitle.setText(getResources().getString(R.string.sua_san_pham));
             this.edtTenSP.setText(this.sanPham.getTen());
             this.edtGiaNhap.setText(String.format("%.0f",this.sanPham.getGiaNhap()));
             this.edtGiaDX.setText(String.format("%.0f",this.sanPham.getGiaDeXuat()));
@@ -67,6 +68,7 @@ public class ThemSPKhoActivity extends AppCompatActivity implements View.OnClick
         this.ivTenSPInfo = findViewById(R.id.iv_ten_sp_info);
         this.tvMaSPInfo = findViewById(R.id.tv_ma_sp_info);
         this.tvTenSPInfo = findViewById(R.id.tv_ten_sp_info);
+        this.tvTitle=findViewById(R.id.tv_title);
         this.llMaSP = findViewById(R.id.ll_ma_sp);
         this.llSoLuong = findViewById(R.id.ll_so_luong);
         ivMaSPInfo.setVisibility(View.INVISIBLE);
@@ -126,6 +128,7 @@ public class ThemSPKhoActivity extends AppCompatActivity implements View.OnClick
                     return;
                 }
 
+
                 alert = new Dialog(this);
                 alert.setTitle(getResources().getString(R.string.app_name));
                 error = this.database.themSPKho(new SanPham(this.edtMaSP.getText().toString().trim(),
@@ -139,9 +142,14 @@ public class ThemSPKhoActivity extends AppCompatActivity implements View.OnClick
                     Toast.makeText(this, getResources().getString(R.string.them_sp_thanh_cong), Toast.LENGTH_SHORT).show();
                     finish();
                     return;
-
-
                 }
+                alert.setConfirm(getResources().getString(R.string.xong), new Dialog.OnClickListener() {
+                    public void onClick(Dialog dialog) {
+                        alert.dismiss();
+                    }
+                });
+                alert.showAlert();
+                return;
         }
     }
 }

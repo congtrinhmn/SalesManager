@@ -54,7 +54,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/mat_khau"
                         android:textColor="#ff111111"
-                        android:textSize="16.0sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_mat_khau"
@@ -113,7 +113,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/don_vi_tien_te"
                         android:textColor="#ff111111"
-                        android:textSize="16.0sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_don_vi_tien_te"
@@ -171,7 +171,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/giao_dien"
                         android:textColor="#ff111111"
-                        android:textSize="16.0sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="18.0dp"
@@ -191,7 +191,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_san_pham_da_an"
+                android:id="@+id/ll_languages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_bg_item"
@@ -205,6 +205,7 @@
                     android:background="#ff9e9e9e" />
 
                 <LinearLayout
+                    android:onClick="showListLanguage"
                     android:layout_width="match_parent"
                     android:layout_height="0.0dp"
                     android:layout_weight="1.0"
@@ -217,7 +218,7 @@
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/shape_bg_icon_4"
                         android:padding="4.0dp"
-                        android:src="@drawable/ic_hidden"
+                        android:src="@drawable/ic_language"
                         android:tint="@color/white" />
 
                     <TextView
@@ -226,9 +227,9 @@
                         android:layout_marginLeft="8.0dp"
                         android:layout_weight="1.0"
                         android:gravity="center_vertical"
-                        android:text="@string/san_pham_da_an"
+                        android:text="@string/language"
                         android:textColor="#ff111111"
-                        android:textSize="16.0sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -284,7 +285,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/xuat_ra_tep"
                         android:textColor="#ff111111"
-                        android:textSize="16.0sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -341,7 +342,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/nhap_vao"
                         android:textColor="#ff111111"
-                        android:textSize="16.0sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"

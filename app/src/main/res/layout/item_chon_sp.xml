@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/layer_list_border_stt">
+
+        <ImageView
+            android:tint="@color/colorPrimary"
+            android:id="@+id/iv_checked"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:src="@drawable/ic_checked" />
+
+        <TextView
+            android:id="@+id/tv_het_hang"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/het_hang"
+            android:textColor="#fff44336"
+            android:textSize="14sp" />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_ma_sp"
+        style="@style/textTableItem"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/layer_list_border_item"
+        android:text="@string/ma_sp" />
+
+    <TextView
+        android:id="@+id/tv_ten_sp"
+        style="@style/textTableItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layer_list_border_item"
+        android:text="@string/ten_sp" />
+
+
+</LinearLayout>

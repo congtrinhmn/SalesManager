@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.android.salesmanager.R;
 import com.android.salesmanager.models.SanPham;
+import com.android.salesmanager.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -20,6 +20,7 @@ public class ListKhoAdapter extends RecyclerView.Adapter {
     public ListKhoAdapter(ArrayList<SanPham> sanPhams) {
         this.sanPhams = sanPhams;
     }
+
     public void notifyDataSetChanged(ArrayList<SanPham> sanPhams) {
         this.sanPhams = sanPhams;
         super.notifyDataSetChanged();
@@ -39,17 +40,17 @@ public class ListKhoAdapter extends RecyclerView.Adapter {
         ViewHoder hoder = (ViewHoder) viewHolder;
         hoder.tvMaSP.setText(sanPhams.get(i).getMa());
         hoder.tvTen.setText(sanPhams.get(i).getTen());
-        hoder.tvSLNhap.setText(String.format("%.0f", sanPhams.get(i).getSlNhap()));
-        hoder.tvSLTon.setText(String.format("%.0f", sanPhams.get(i).getSlTon()));
-        hoder.tvGiaNhap.setText(String.format("%.0f", sanPhams.get(i).getGiaNhap()));
-        hoder.tvGiaDX.setText(String.format("%.0f", sanPhams.get(i).getGiaDeXuat()));
-        if(sanPhams.get(i).getSlTon()<=0){
-            for(int j=0;j< ((ViewGroup) hoder.itemView).getChildCount();j++){
+        hoder.tvSLNhap.setText(Utils.numberFormat(sanPhams.get(i).getSlNhap()));
+        hoder.tvSLTon.setText(Utils.numberFormat(sanPhams.get(i).getSlTon()));
+        hoder.tvGiaNhap.setText(Utils.numberFormat(sanPhams.get(i).getGiaNhap()));
+        hoder.tvGiaDX.setText(Utils.numberFormat(sanPhams.get(i).getGiaDeXuat()));
+        if (sanPhams.get(i).getSlTon() <= 0) {
+            for (int j = 0; j < ((ViewGroup) hoder.itemView).getChildCount(); j++) {
                 ((ViewGroup) hoder.itemView).getChildAt(j).setEnabled(false);
             }
             return;
         }
-        for(int j=0;j< ((ViewGroup) hoder.itemView).getChildCount();j++){
+        for (int j = 0; j < ((ViewGroup) hoder.itemView).getChildCount(); j++) {
             ((ViewGroup) hoder.itemView).getChildAt(j).setEnabled(true);
         }
     }
@@ -58,7 +59,11 @@ public class ListKhoAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return sanPhams.size();
     }
-    public SanPham getItem(int position) { return (SanPham) this.sanPhams.get(position); }
+
+    public SanPham getItem(int position) {
+        return (SanPham) this.sanPhams.get(position);
+    }
+
     public class ViewHoder extends RecyclerView.ViewHolder {
         TextView tvMaSP;
         TextView tvTen;
@@ -67,7 +72,7 @@ public class ListKhoAdapter extends RecyclerView.Adapter {
         TextView tvGiaDX;
         TextView tvGiaNhap;
 
-        public ViewHoder(@NonNull View itemView) {
+        ViewHoder(@NonNull View itemView) {
             super(itemView);
             tvMaSP = itemView.findViewById(R.id.tv_ma_sp);
             tvMaSP = itemView.findViewById(R.id.tv_ma_sp);

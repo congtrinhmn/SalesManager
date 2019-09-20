@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.salesmanager.BanSPActivity;
 import com.android.salesmanager.MainActivity;
@@ -39,8 +38,6 @@ public class KhoFragment extends Fragment implements View.OnClickListener {
     private ListSTTAdapter listSTTAdapter;
     private MainActivity mainActivity;
     private LinearLayout llContent;
-    private LinearLayout llLeftTopHeader;
-    private LinearLayout llTopHeader;
     private View rootView;
     private RecyclerView rvContent;
     private RecyclerView rvStt;
@@ -89,15 +86,13 @@ public class KhoFragment extends Fragment implements View.OnClickListener {
 
     private void initView() {
         this.llContent = this.rootView.findViewById(R.id.ll_content);
-        this.llLeftTopHeader = this.rootView.findViewById(R.id.ll_left_top_header);
-        this.llTopHeader = this.rootView.findViewById(R.id.ll_top_header);
-        TextView tvStt=this.rootView.findViewById(R.id.tv_stt_header);
-        TextView tvMaSP=this.rootView.findViewById(R.id.tv_ma_sp_header);
-        TextView tvTenSP=this.rootView.findViewById(R.id.tv_ten_sp_header);
+        TextView tvStt = this.rootView.findViewById(R.id.tv_stt_header);
+        TextView tvMaSP = this.rootView.findViewById(R.id.tv_ma_sp_header);
+        TextView tvTenSP = this.rootView.findViewById(R.id.tv_ten_sp_header);
         TextView tvSLNhap = this.rootView.findViewById(R.id.tv_sl_nhap_header);
-        TextView tvSLTon=this.rootView.findViewById(R.id.tv_sl_ton_header);
-        TextView tvGiaDX=this.rootView.findViewById(R.id.tv_gia_dx_header);
-        TextView tvGiaNhap=this.rootView.findViewById(R.id.tv_gia_nhap_header);
+        TextView tvSLTon = this.rootView.findViewById(R.id.tv_sl_ton_header);
+        TextView tvGiaDX = this.rootView.findViewById(R.id.tv_gia_dx_header);
+        TextView tvGiaNhap = this.rootView.findViewById(R.id.tv_gia_nhap_header);
         tvStt.setOnClickListener(this);
         tvMaSP.setOnClickListener(this);
         tvTenSP.setOnClickListener(this);
@@ -162,7 +157,10 @@ public class KhoFragment extends Fragment implements View.OnClickListener {
             public void onItemClick(ActionSheet actionSheet, ActionSheet.ActionSheetItem actionSheetItem, int i) {
                 switch (actionSheetItem.id) {
                     case 0:
-                        startActivity(new Intent(KhoFragment.this.getActivity(), BanSPActivity.class));
+                        Intent intent = new Intent(KhoFragment.this.getActivity(), BanSPActivity.class);
+                        intent.putExtra(ThemSPKhoActivity.EXTRA_EDITMODE, true);
+                        intent.putExtra(ThemSPKhoActivity.EXTRA_SAN_PHAM, sanPham);
+                        startActivity(intent);
                         break;
                     case 1:
                         NhapThemSPDialog nhapThemSPDialog = new NhapThemSPDialog(KhoFragment.this.getActivity(), sanPham.getMa());
@@ -183,10 +181,10 @@ public class KhoFragment extends Fragment implements View.OnClickListener {
                         nhapThemSPDialog.show();
                         break;
                     case 2:
-                        Intent intent = new Intent(KhoFragment.this.getActivity(), ThemSPKhoActivity.class);
-                        intent.putExtra(ThemSPKhoActivity.EXTRA_EDITMODE, true);
-                        intent.putExtra(ThemSPKhoActivity.EXTRA_SAN_PHAM, sanPham);
-                        KhoFragment.this.startActivity(intent);
+                        Intent intent2 = new Intent(KhoFragment.this.getActivity(), ThemSPKhoActivity.class);
+                        intent2.putExtra(ThemSPKhoActivity.EXTRA_EDITMODE, true);
+                        intent2.putExtra(ThemSPKhoActivity.EXTRA_SAN_PHAM, sanPham);
+                        KhoFragment.this.startActivity(intent2);
                         break;
                     case 3:
                         Dialog confirmDialog = new Dialog(KhoFragment.this.getActivity());
@@ -243,7 +241,7 @@ public class KhoFragment extends Fragment implements View.OnClickListener {
 
 
     private void search() {
-        Database.getInstance(getActivity()).getSPKho(Utils.replaceSpecialCharacter(this.mainActivity.edtSearch.getText().toString()), ((SearchTypeAdapter) this.mainActivity.spnSearchType.getAdapter()).getItem(this.mainActivity.spnSearchType.getSelectedItemPosition()),sortType ,new Database.DatabaseListener() {
+        Database.getInstance(getActivity()).getSPKho(Utils.replaceSpecialCharacter(this.mainActivity.edtSearch.getText().toString()), ((SearchTypeAdapter) this.mainActivity.spnSearchType.getAdapter()).getItem(this.mainActivity.spnSearchType.getSelectedItemPosition()), sortType, new Database.DatabaseListener() {
             public void callback(Object[] data) {
                 KhoFragment.this.listSTTAdapter.notifyDataSetChanged((ArrayList) data[0]);
                 KhoFragment.this.listKhoAdapter.notifyDataSetChanged((ArrayList) data[0]);
@@ -261,40 +259,48 @@ public class KhoFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_stt_header:
-                if (this.sortType == " ORDER BY id DESC;")
+                if (this.sortType.equals(" ORDER BY id DESC;"))
                     this.sortType = " ORDER BY id ASC;";
                 else this.sortType = " ORDER BY id DESC;";
-                search();return;
+                search();
+                return;
             case R.id.tv_ma_sp_header:
-                if (this.sortType == " ORDER BY ma DESC;")
+                if (this.sortType.equals(" ORDER BY ma DESC;"))
                     this.sortType = " ORDER BY ma ASC;";
                 else this.sortType = " ORDER BY ma DESC;";
-                search();return;
+                search();
+                return;
             case R.id.tv_ten_sp_header:
-                if (this.sortType == " ORDER BY ten DESC;")
+                if (this.sortType.equals(" ORDER BY ten DESC;"))
                     this.sortType = " ORDER BY ten ASC;";
                 else this.sortType = " ORDER BY ten DESC;";
-                search();return;
+                search();
+                return;
             case R.id.tv_sl_nhap_header:
-                if (this.sortType == " ORDER BY sl_nhap DESC;")
+                if (this.sortType.equals(" ORDER BY sl_nhap DESC;"))
                     this.sortType = " ORDER BY sl_nhap ASC;";
                 else this.sortType = " ORDER BY sl_nhap DESC;";
-                search();return;
+                search();
+                return;
             case R.id.tv_sl_ton_header:
-                if (this.sortType == " ORDER BY sl_ton DESC;")
+                if (this.sortType.equals(" ORDER BY sl_ton DESC;"))
                     this.sortType = " ORDER BY sl_ton ASC;";
                 else this.sortType = " ORDER BY sl_ton DESC;";
-                search();return;
+                search();
+                return;
             case R.id.tv_gia_dx_header:
-                if (this.sortType == " ORDER BY gia_dx DESC;")
+                if (this.sortType.equals(" ORDER BY gia_dx DESC;"))
                     this.sortType = " ORDER BY gia_dx ASC;";
                 else this.sortType = " ORDER BY gia_dx DESC;";
-                search();return;
+                search();
+                return;
             case R.id.tv_gia_nhap_header:
-                if (this.sortType == " ORDER BY gia_nhap DESC;")
+                if (this.sortType.equals(" ORDER BY gia_nhap DESC;"))
                     this.sortType = " ORDER BY gia_nhap ASC;";
                 else this.sortType = " ORDER BY gia_nhap DESC;";
-                search();return;
+                search();
+                return;
+            default:
         }
     }
 }

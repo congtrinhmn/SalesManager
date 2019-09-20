@@ -17,7 +17,7 @@
         android:paddingRight="16dp"
         android:paddingBottom="0dp"
         android:text="@string/nhap_them_san_pham"
-        android:textSize="18.0sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <ScrollView
@@ -37,7 +37,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 android:text="@string/nhap_so_luong_can_them"
-                android:textSize="14.0sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@id/edt_sl_nhap"
@@ -72,7 +72,7 @@
             android:background="#00000000"
             android:text="@string/huy"
             android:textColor="@drawable/dialog_button_cancel_tint_color"
-            android:textSize="16.0sp" />
+            android:textSize="16sp" />
 
         <View
             android:id="@id/v_divider"
@@ -89,7 +89,7 @@
             android:background="#00000000"
             android:text="@string/them"
             android:textColor="@drawable/dialog_button_confirm_tint_color"
-            android:textSize="16.0sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

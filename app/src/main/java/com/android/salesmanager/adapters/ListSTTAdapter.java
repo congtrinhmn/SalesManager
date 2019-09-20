@@ -46,7 +46,7 @@ public class ListSTTAdapter extends RecyclerView.Adapter {
     public class ViewHoder extends RecyclerView.ViewHolder {
         TextView tvSTT;
 
-        public ViewHoder(@NonNull View itemView) {
+        ViewHoder(@NonNull View itemView) {
             super(itemView);
             tvSTT = itemView.findViewById(R.id.tv_stt);
 

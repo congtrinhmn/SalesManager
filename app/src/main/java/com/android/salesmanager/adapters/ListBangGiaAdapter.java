@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.salesmanager.R;
 import com.android.salesmanager.models.SanPham;
+import com.android.salesmanager.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class ListBangGiaAdapter extends RecyclerView.Adapter {
         ListBangGiaAdapter.ViewHoder hoder = (ListBangGiaAdapter.ViewHoder) viewHolder;
         hoder.tvMaSP.setText(sanPhams.get(i).getMa());
         hoder.tvTen.setText(sanPhams.get(i).getTen());
-        hoder.tvGiaDX.setText(String.format("%.0f", sanPhams.get(i).getGiaDeXuat()));
+        hoder.tvGiaDX.setText(Utils.numberFormat( sanPhams.get(i).getGiaDeXuat()));
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ListBangGiaAdapter extends RecyclerView.Adapter {
         TextView tvTen;
         TextView tvGiaDX;
 
-        public ViewHoder(@NonNull View itemView) {
+        ViewHoder(@NonNull View itemView) {
             super(itemView);
             tvMaSP = itemView.findViewById(R.id.tv_ma_sp);
             tvTen = itemView.findViewById(R.id.tv_ten_sp);

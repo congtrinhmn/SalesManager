@@ -20,16 +20,20 @@ public class ListChonSPAdapter extends RecyclerView.Adapter {
     public ListChonSPAdapter(ArrayList<SanPham> sanPhams) {
         this.sanPhams = sanPhams;
     }
+
     public void notifyDataSetChanged(ArrayList<SanPham> sanPhams) {
         this.sanPhams = sanPhams;
         super.notifyDataSetChanged();
     }
+
     public void setSanPhamSelected(SanPham sanPhamSelected) {
         this.sanPhamSelected = sanPhamSelected;
     }
+
     public SanPham getSanPhamSelected() {
         return this.sanPhamSelected;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -41,7 +45,7 @@ public class ListChonSPAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         ListChonSPAdapter.ViewHoder hoder = (ListChonSPAdapter.ViewHoder) viewHolder;
-        SanPham sanPham=this.sanPhams.get(position);
+        SanPham sanPham = this.sanPhams.get(position);
         if (this.sanPhamSelected == null || sanPham.getId() != this.sanPhamSelected.getId()) {
             hoder.ivChecked.setImageDrawable(null);
         } else {
@@ -76,9 +80,9 @@ public class ListChonSPAdapter extends RecyclerView.Adapter {
         TextView tvMaSP;
         TextView tvTen;
 
-        public ViewHoder(@NonNull View itemView) {
+        ViewHoder(@NonNull View itemView) {
             super(itemView);
-           this.ivChecked=itemView.findViewById(R.id.iv_checked);
+            this.ivChecked = itemView.findViewById(R.id.iv_checked);
             this.tvTen = itemView.findViewById(R.id.tv_ten_sp);
             this.tvMaSP = itemView.findViewById(R.id.tv_ma_sp);
             this.tvHetHang = itemView.findViewById(R.id.tv_het_hang);
@@ -87,6 +91,6 @@ public class ListChonSPAdapter extends RecyclerView.Adapter {
     }
 
     public SanPham getItem(int position) {
-        return (SanPham) this.sanPhams.get(position);
+        return this.sanPhams.get(position);
     }
 }

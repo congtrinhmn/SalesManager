@@ -23,7 +23,7 @@ public class SearchTypeAdapter extends BaseAdapter {
     }
 
     public SearchType getItem(int i) {
-        return (SearchType) this.searchTypes.get(i);
+        return this.searchTypes.get(i);
     }
 
     public long getItemId(int i) {

@@ -14,4 +14,8 @@
         <item>Tháng 11</item>
         <item>Tháng 12</item>
     </array>
+    <array name="languages">
+        <item>English</item>
+        <item>Vietnamese</item>
+    </array>
 </resources>

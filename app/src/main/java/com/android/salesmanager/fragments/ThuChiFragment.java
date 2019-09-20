@@ -26,12 +26,10 @@ import com.android.salesmanager.utils.Utils;
 import java.util.ArrayList;
 
 
-public class ThuChiFragment extends Fragment {
+public class ThuChiFragment extends Fragment implements View.OnClickListener {
     private ListThuChiAdapter listThuChiAdapter;
     private ListSTTAdapter listSTTAdapter;
     private LinearLayout llContent;
-    private LinearLayout llLeftTopHeader;
-    private LinearLayout llTopHeader;
     private TextView tvTongLai;
     private TextView tvTongThu;
     private TextView tvTongVon;
@@ -42,7 +40,7 @@ public class ThuChiFragment extends Fragment {
     private boolean rvContentScrolling = false;
     private boolean rvSttScrolling = false;
     private ArrayList<SanPham> sanPhams = new ArrayList<>();
-
+    private String sortType = " ;";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +76,20 @@ public class ThuChiFragment extends Fragment {
 
     private void initView() {
         this.llContent = this.rootView.findViewById(R.id.ll_content);
-        this.llLeftTopHeader = this.rootView.findViewById(R.id.ll_left_top_header);
-        this.llTopHeader = this.rootView.findViewById(R.id.ll_top_header);
+        TextView tvStt = this.rootView.findViewById(R.id.tv_stt_header);
+        TextView tvMaSP = this.rootView.findViewById(R.id.tv_ma_sp_header);
+        TextView tvTenSP = this.rootView.findViewById(R.id.tv_ten_sp_header);
+        TextView tvSLBanRa = this.rootView.findViewById(R.id.tv_sl_ban_ra_header);
+        TextView tvLai = this.rootView.findViewById(R.id.tv_lai_header);
+        TextView tvVon = this.rootView.findViewById(R.id.tv_von_header);
+        TextView tvTongThu = this.rootView.findViewById(R.id.tv_tong_thu_header);
+        tvStt.setOnClickListener(this);
+        tvMaSP.setOnClickListener(this);
+        tvTenSP.setOnClickListener(this);
+        tvSLBanRa.setOnClickListener(this);
+        tvLai.setOnClickListener(this);
+        tvVon.setOnClickListener(this);
+        tvTongThu.setOnClickListener(this);
         this.rvContent = this.rootView.findViewById(R.id.rv_content);
         this.rvStt = this.rootView.findViewById(R.id.rv_stt);
         this.tvTongLai = this.rootView.findViewById(R.id.tv_tong_lai);
@@ -94,8 +104,8 @@ public class ThuChiFragment extends Fragment {
         rvStt.setLayoutManager(new LinearLayoutManager(ThuChiFragment.this.getActivity(), LinearLayoutManager.VERTICAL, false));
         rvContent.setItemAnimator(new DefaultItemAnimator());
         rvStt.setItemAnimator(new DefaultItemAnimator());
-        listThuChiAdapter=new ListThuChiAdapter(sanPhams);
-        listSTTAdapter=new ListSTTAdapter(sanPhams);
+        listThuChiAdapter = new ListThuChiAdapter(sanPhams);
+        listSTTAdapter = new ListSTTAdapter(sanPhams);
         rvContent.setAdapter(listThuChiAdapter);
         rvStt.setAdapter(listSTTAdapter);
 
@@ -125,7 +135,7 @@ public class ThuChiFragment extends Fragment {
     }
 
     private void search() {
-        Database.getInstance(getActivity()).getThuChi(Utils.replaceSpecialCharacter(this.mainActivity.edtSearch.getText().toString()), ((SearchTypeAdapter) this.mainActivity.spnSearchType.getAdapter()).getItem(this.mainActivity.spnSearchType.getSelectedItemPosition()), new Database.DatabaseListener() {
+        Database.getInstance(getActivity()).getThuChi(Utils.replaceSpecialCharacter(this.mainActivity.edtSearch.getText().toString()), ((SearchTypeAdapter) this.mainActivity.spnSearchType.getAdapter()).getItem(this.mainActivity.spnSearchType.getSelectedItemPosition()), sortType, new Database.DatabaseListener() {
             public void callback(Object[] data) {
                 ThuChiFragment.this.listSTTAdapter.notifyDataSetChanged((ArrayList) data[0]);
                 ThuChiFragment.this.listThuChiAdapter.notifyDataSetChanged((ArrayList) data[0]);
@@ -142,4 +152,52 @@ public class ThuChiFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_stt_header:
+                this.sortType = " ;";
+                search();
+                return;
+            case R.id.tv_ten_sp_header:
+                if (this.sortType.equals(" ORDER BY tb2.ten DESC;"))
+                    this.sortType = " ORDER BY tb2.ten ASC;";
+                else this.sortType = " ORDER BY tb2.ten DESC;";
+                search();
+                return;
+            case R.id.tv_ma_sp_header:
+                if (this.sortType.equals(" ORDER BY tb1.ma DESC;"))
+                    this.sortType = " ORDER BY tb1.ma ASC;";
+                else this.sortType = " ORDER BY tb1.ma DESC;";
+                search();
+                return;
+            case R.id.tv_sl_ban_ra_header:
+                if (this.sortType.equals(" ORDER BY sl_ban_ra DESC;"))
+                    this.sortType = " ORDER BY sl_ban_ra ASC;";
+                else this.sortType = " ORDER BY sl_ban_ra DESC;";
+                search();
+                return;
+            case R.id.tv_lai_header:
+                if (this.sortType.equals(" ORDER BY lai DESC;"))
+                    this.sortType = " ORDER BY lai ASC;";
+                else this.sortType = " ORDER BY lai DESC;";
+                search();
+                return;
+            case R.id.tv_von_header:
+                if (this.sortType.equals(" ORDER BY von DESC;"))
+                    this.sortType = " ORDER BY von ASC;";
+                else this.sortType = " ORDER BY von DESC;";
+                search();
+                return;
+            case R.id.tv_tong_thu_header:
+                if (this.sortType.equals(" ORDER BY tong_thu DESC;"))
+                    this.sortType = " ORDER BY tong_thu ASC;";
+                else this.sortType = " ORDER BY tong_thu DESC;";
+                search();
+                return;
+            default:
+
+
+        }
+    }
 }

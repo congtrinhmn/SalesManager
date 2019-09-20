@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.salesmanager.R;
 import com.android.salesmanager.models.SanPham;
+import com.android.salesmanager.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -19,10 +20,12 @@ public class ListThuChiAdapter extends RecyclerView.Adapter {
     public ListThuChiAdapter(ArrayList<SanPham> sanPhams) {
         this.sanPhams = sanPhams;
     }
+
     public void notifyDataSetChanged(ArrayList<SanPham> sanPhams) {
         this.sanPhams = sanPhams;
         super.notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -36,10 +39,10 @@ public class ListThuChiAdapter extends RecyclerView.Adapter {
         ListThuChiAdapter.ViewHoder hoder = (ListThuChiAdapter.ViewHoder) viewHolder;
         hoder.tvMaSP.setText(sanPhams.get(i).getMa());
         hoder.tvTen.setText(sanPhams.get(i).getTen());
-        hoder.tvSLBanRa.setText(String.format("%.0f", sanPhams.get(i).getSl()));
-        hoder.tvLai.setText(String.format("%.0f", sanPhams.get(i).getLai()));
-        hoder.tvVon.setText(String.format("%.0f", sanPhams.get(i).getVon()));
-        hoder.tvTongThu.setText(String.format("%.0f", sanPhams.get(i).getTongThu()));
+        hoder.tvSLBanRa.setText(Utils.numberFormat(sanPhams.get(i).getSl()));
+        hoder.tvLai.setText(Utils.numberFormat(sanPhams.get(i).getLai()));
+        hoder.tvVon.setText(Utils.numberFormat(sanPhams.get(i).getVon()));
+        hoder.tvTongThu.setText(Utils.numberFormat(sanPhams.get(i).getTongThu()));
     }
 
     @Override
@@ -55,7 +58,7 @@ public class ListThuChiAdapter extends RecyclerView.Adapter {
         TextView tvVon;
         TextView tvTongThu;
 
-        public ViewHoder(@NonNull View itemView) {
+        ViewHoder(@NonNull View itemView) {
             super(itemView);
             tvMaSP = itemView.findViewById(R.id.tv_ma_sp);
             tvTen = itemView.findViewById(R.id.tv_ten_sp);

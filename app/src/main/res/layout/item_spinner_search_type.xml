@@ -8,4 +8,4 @@
     android:paddingBottom="5dp"
     android:text="tv"
     android:textColor="#ff111111"
-    android:textSize="16.0sp" />
+    android:textSize="16sp" />

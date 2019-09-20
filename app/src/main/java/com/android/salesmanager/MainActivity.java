@@ -1,10 +1,14 @@
 package com.android.salesmanager;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +34,7 @@ import com.android.salesmanager.widgets.TabIndicatorView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Tab> tabs = new ArrayList<>();
     private ArrayList<SearchType> searchTypes;
     private Resources resources;
-    private Database db;
     private OnSearchListener onSearchListener;
 
     public void setOnSearchListener(OnSearchListener onSearchListener) {
@@ -55,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        String language = sp.getString("KEY_LANGUAGE", "en");
+        setLanguage(language);
 
         if (getResources().getConfiguration().orientation == 2) {
             getWindow().requestFeature(1);
@@ -68,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.tabs.add(new Tab(R.drawable.ic_bang_gia, this.resources.getString(R.string.bang_gia), new BangGiaFragment()));
         this.tabs.add(new Tab(R.drawable.ic_kho, this.resources.getString(R.string.kho), new KhoFragment()));
         this.tabs.add(new Tab(R.drawable.ic_thu_chi, this.resources.getString(R.string.thu_chi), new ThuChiFragment()));
-        this.tabs.add(new Tab(R.drawable.ic_nhieu_hon, this.resources.getString(R.string.them), new ThemFragment()));
+        this.tabs.add(new Tab(R.drawable.ic_nhieu_hon, this.resources.getString(R.string.cai_dat), new ThemFragment()));
         initView();
         this.spnSearchType.setAdapter(new SearchTypeAdapter(this.searchTypes));
         SystemTime.getInstance().getLimYearNow();
@@ -76,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void initView() {
-
 
         this.llTitle = findViewById(R.id.ll_title);
         this.llSearch=findViewById(R.id.ll_search);
@@ -165,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 hiddenShowSearch();
                 return;
             default:
-                return;
         }
     }
     public void onBackPressed() {
@@ -240,5 +246,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.title = title;
             this.fragment = fragment;
         }
+    }
+
+    public void showListLanguage(View view) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.language)
+                .setItems(R.array.languages, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String language = "en";
+                        switch (which){
+                            case 1: //VI
+                                language = "vi";
+                                break;
+                        }
+
+                        setLanguage(language);
+
+                        //save
+                        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("KEY_LANGUAGE", language);
+                        editor.commit();
+
+                        //refresh UI
+                        Intent i = getBaseContext().getPackageManager()
+                                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                }).create().show();
+    }
+
+    void setLanguage(String language){
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources resources = getResources();
+        Configuration con = resources.getConfiguration();
+        con.locale = locale;
+        resources.updateConfiguration(con, resources.getDisplayMetrics());
     }
 }

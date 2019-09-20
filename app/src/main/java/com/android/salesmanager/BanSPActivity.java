@@ -18,6 +18,8 @@ import com.android.salesmanager.utils.Utils;
 
 public class BanSPActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String EXTRA_EDITMODE = "editmode";
+    public static final String EXTRA_SAN_PHAM = "SP";
     private ImageView ivBack;
     private Button btnBanRa;
     private TextView tvSanPham;
@@ -33,6 +35,17 @@ public class BanSPActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ban_sp);
         initView();
+        if (getIntent().getBooleanExtra(EXTRA_EDITMODE, false)) {
+            this.sanPhamSelected = (SanPham) getIntent().getSerializableExtra(EXTRA_SAN_PHAM);
+            this.tvSanPham.setText(this.sanPhamSelected.getMa() + " - " + this.sanPhamSelected.getTen());
+            this.tvGioiHanSL.setText("1-" + Utils.numberFormat(this.sanPhamSelected.getSlTon()));
+            this.edtGiaBanRa.setText(String.format("%.0f", this.sanPhamSelected.getGiaDeXuat()));
+            this.tvThoiGian.setText(SystemTime.getInstance().parseTime(SystemTime.getInstance().getTime()));
+            this.edtSoLuong.setText("1");
+            this.edtGiaBanRa.setEnabled(true);
+            this.edtSoLuong.setEnabled(true);
+            this.tvThoiGian.setEnabled(true);
+        }
     }
 
     private void initView() {
@@ -82,6 +95,7 @@ public class BanSPActivity extends AppCompatActivity implements View.OnClickList
             this.tvSanPham.setText(this.sanPhamSelected.getMa() + " - " + this.sanPhamSelected.getTen());
             this.tvGioiHanSL.setText("1-" + Utils.numberFormat(this.sanPhamSelected.getSlTon()));
             this.edtGiaBanRa.setText(String.format("%.0f", this.sanPhamSelected.getGiaDeXuat()));
+            this.tvThoiGian.setText(SystemTime.getInstance().parseTime(SystemTime.getInstance().getTime()));
             this.edtSoLuong.setText("1");
             this.edtGiaBanRa.setEnabled(true);
             this.edtSoLuong.setEnabled(true);
@@ -102,17 +116,28 @@ public class BanSPActivity extends AppCompatActivity implements View.OnClickList
         });
         alert.setCancelable(false);
         alert.setCanceledOnTouchOutside(false);
-        if(this.sanPhamSelected==null){
+        if (this.sanPhamSelected == null) {
             alert.setMessage(getResources().getString(R.string.chua_chon_sam_pham));
-        }else {
-            double giaBanRa=Double.valueOf(this.edtGiaBanRa.getText().toString());
-            double sl=Double.valueOf(this.edtSoLuong.getText().toString());
+        } else {
+            double giaBanRa = Double.valueOf(this.edtGiaBanRa.getText().toString());
+            double sl = Double.valueOf(this.edtSoLuong.getText().toString());
+            if (sl > BanSPActivity.this.sanPhamSelected.getSlTon() || sl < 1) {
+                alert.setMessage(getResources().getString(R.string.so_luong_khong_hop_le));
+                alert.setConfirm(getResources().getString(R.string.xong), new Dialog.OnClickListener() {
+                    @Override
+                    public void onClick(Dialog dialog) {
+                        alert.dismiss();
+                    }
+                });
+                alert.showAlert();
+                return;
+            }
             this.sanPhamSelected.setBanVoiGia(giaBanRa);
             this.sanPhamSelected.setSl(sl);
-            String error=Database.getInstance(this).themSPDaBan(this.sanPhamSelected);
-            if(error!=null){
+            String error = Database.getInstance(this).themSPDaBan(this.sanPhamSelected);
+            if (error != null) {
                 alert.setMessage(error);
-            }else {
+            } else {
                 alert.setMessage(getResources().getString(R.string.them_sp_thanh_cong));
                 alert.setConfirm(getResources().getString(R.string.xong), new Dialog.OnClickListener() {
                     @Override
@@ -124,13 +149,6 @@ public class BanSPActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         alert.showAlert();
-
-
-
-
-
-
-
 
 
     }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.salesmanager.R;
 import com.android.salesmanager.models.SanPham;
+import com.android.salesmanager.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -36,9 +37,9 @@ public class ListDaBanAdapter extends RecyclerView.Adapter {
         ListDaBanAdapter.ViewHoder hoder = (ListDaBanAdapter.ViewHoder) viewHolder;
         hoder.tvMaSP.setText(sanPhams.get(i).getMa());
         hoder.tvTen.setText(sanPhams.get(i).getTen());
-        hoder.tvGiaBanRa.setText(String.format("%.0f", sanPhams.get(i).getBanVoiGia()));
-        hoder.tvSL.setText(String.format("%.0f", sanPhams.get(i).getSl()));
-        //hoder.tvThoiGian.setText(String.format("%.0f", sanPhams.get(i).getThoiGian()));
+        hoder.tvGiaBanRa.setText(Utils.numberFormat( sanPhams.get(i).getBanVoiGia()));
+        hoder.tvSL.setText(Utils.numberFormat( sanPhams.get(i).getSl()));
+        hoder.tvThoiGian.setText(sanPhams.get(i).getThoiGian());
     }
 
     @Override
@@ -53,7 +54,7 @@ public class ListDaBanAdapter extends RecyclerView.Adapter {
         TextView tvSL;
         TextView tvThoiGian;
 
-        public ViewHoder(@NonNull View itemView) {
+        ViewHoder(@NonNull View itemView) {
             super(itemView);
             tvMaSP = itemView.findViewById(R.id.tv_ma_sp);
             tvTen = itemView.findViewById(R.id.tv_ten_sp);

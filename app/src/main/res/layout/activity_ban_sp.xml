@@ -37,7 +37,7 @@
                 android:maxLines="1"
                 android:text="@string/ban_san_pham"
                 android:textColor="@color/white"
-                android:textSize="20.0sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
@@ -51,7 +51,7 @@
                 android:text="@string/ban_ra"
                 android:textAllCaps="true"
                 android:textColor="@drawable/selector_top_bar_tint_color"
-                android:textSize="16.0sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <View
@@ -83,7 +83,7 @@
                     android:padding="5dp"
                     android:text="@string/san_pham"
                     android:textColor="#ff111111"
-                    android:textSize="16.0sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -109,7 +109,7 @@
                     android:padding="5dp"
                     android:text="@string/gia"
                     android:textColor="#ff111111"
-                    android:textSize="16.0sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -133,7 +133,7 @@
                     android:padding="5dp"
                     android:text="VND/SP"
                     android:textColor="#ff616161"
-                    android:textSize="16.0sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,7 +148,7 @@
                     android:padding="5dp"
                     android:text="@string/so_luong_2"
                     android:textColor="#ff111111"
-                    android:textSize="16.0sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -179,7 +179,7 @@
                         android:paddingLeft="5dp"
                         android:text="1-1000"
                         android:textColor="#ff616161"
-                        android:textSize="10.0sp" />
+                        android:textSize="10sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -188,7 +188,7 @@
                         android:paddingLeft="5dp"
                         android:text="@string/san_pham"
                         android:textColor="#ff616161"
-                        android:textSize="16.0sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -204,7 +204,7 @@
                     android:padding="5dp"
                     android:text="@string/thoi_gian"
                     android:textColor="#ff111111"
-                    android:textSize="16.0sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView

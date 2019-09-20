@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.salesmanager.BuildConfig;
 import com.android.salesmanager.R;
@@ -15,15 +17,19 @@ import com.android.salesmanager.models.SearchType;
 import com.android.salesmanager.utils.SystemTime;
 import com.android.salesmanager.utils.Utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Database extends SQLiteOpenHelper {
     public SQLiteDatabase sqLiteDatabase;
 
     public static int VERSION = 1;
-    private static final String DATABASE_NAME = "database.db";
-    private static final String TABLE_KHO = "kho";
+    public static final String DATABASE_NAME = "database.db";
+    public static final String TABLE_KHO = "kho";
     private static final String ID = "id";
     private static final String MA = "ma";
     private static final String TEN = "ten";
@@ -52,6 +58,10 @@ public class Database extends SQLiteOpenHelper {
         }
         return instance;
     }
+
+    public void insertNote(SanPham sanPham) {
+    }
+
 
     public interface DatabaseListener {
         void callback(Object[] objArr);
@@ -106,10 +116,10 @@ public class Database extends SQLiteOpenHelper {
             return this.context.getResources().getString(R.string.gia_dx_khong_hop_le);
         }
         if (existsMaSPKho(sanPham.getMa())) {
-            return this.context.getResources().getString(R.string.ma_)+ sanPham.getMa() + this.context.getResources().getString(R.string._da_ton_tai);
+            return this.context.getResources().getString(R.string.ma_) + " " + sanPham.getMa() + " " + this.context.getResources().getString(R.string._da_ton_tai);
         }
         if (existsTenSPKho(sanPham.getTen())) {
-            return this.context.getResources().getString(R.string.ten_san_pham_) + sanPham.getTen() + this.context.getResources().getString(R.string._da_ton_tai);
+            return this.context.getResources().getString(R.string.ten_san_pham_) + sanPham.getTen() + " " + this.context.getResources().getString(R.string._da_ton_tai);
         }
 
 
@@ -151,7 +161,7 @@ public class Database extends SQLiteOpenHelper {
         //contentValues.put("thoi_gian", sanPham.getThoiGian().trim().equals(BuildConfig.FLAVOR) ? SystemTime.getInstance().getTime() : SystemTime.getInstance().getTime(sanPham.getThoiGian().trim()));
         contentValues.put("thoi_gian", SystemTime.getInstance().getTime());
         StringBuilder stSqlUpdate = new StringBuilder("UPDATE kho SET sl_ton = sl_ton - ").append(Utils.numberFormat(sanPham.getSl()).replace(",", BuildConfig.FLAVOR)).append(" WHERE ma = '").append(sanPham.getMa()).append("';");
-        Log.d("CT", "stSqlUpdate: " + stSqlUpdate);
+        Log.d("TTT", "stSqlUpdate: " + stSqlUpdate);
         try {
             this.sqLiteDatabase.execSQL(stSqlUpdate.toString());
             this.sqLiteDatabase.insertOrThrow("da_ban", null, contentValues);
@@ -164,7 +174,7 @@ public class Database extends SQLiteOpenHelper {
 
     public String nhapThemSanPham(String ma, double soLuong) {
         StringBuilder stSqlUpdate = new StringBuilder("UPDATE kho SET sl_nhap = sl_nhap + ").append(soLuong).append(", sl_ton = sl_ton + ").append(soLuong).append(" WHERE ma = '").append(ma).append("';");
-        Log.d("CT", "sql: " + stSqlUpdate.toString());
+        Log.d("TTT", "sql: " + stSqlUpdate.toString());
         try {
             this.sqLiteDatabase.execSQL(stSqlUpdate.toString());
             return null;
@@ -188,7 +198,7 @@ public class Database extends SQLiteOpenHelper {
             return this.context.getResources().getString(R.string.san_pham_) + sanPham.getTen() + this.context.getResources().getString(R.string._da_ton_tai);
         }
         StringBuilder stSqlUpdate = new StringBuilder("UPDATE kho SET ten = '").append(sanPham.getTen()).append("', gia_nhap = ").append(sanPham.getGiaNhap()).append(", gia_dx = ").append(sanPham.getGiaDeXuat()).append(" WHERE ma = '").append(sanPham.getMa()).append("';");
-        Log.d("CT", "sql: " + stSqlUpdate.toString());
+        Log.d("TTT", "sql: " + stSqlUpdate.toString());
         try {
             this.sqLiteDatabase.execSQL(stSqlUpdate.toString());
             return null;
@@ -208,28 +218,6 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
-    public List<SanPham> getSPKho() {
-        List<SanPham> sanPhams = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_KHO;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        int stt = 0;
-        if (cursor.moveToFirst()) {
-            do {
-                stt++;
-                //int id = cursor.getInt(cursor.getColumnIndex("id"));
-                String ma = cursor.getString(cursor.getColumnIndex("ma"));
-                String ten = cursor.getString(cursor.getColumnIndex("ten"));
-                double slNhap = cursor.getDouble(cursor.getColumnIndex("sl_nhap"));
-                double slTon = cursor.getDouble(cursor.getColumnIndex("sl_ton"));
-                double giaDX = cursor.getDouble(cursor.getColumnIndex("gia_dx"));
-                double giaNhap = cursor.getDouble(cursor.getColumnIndex("gia_nhap"));
-                sanPhams.add(0, new SanPham(stt, -1, ma, ten, slNhap, slTon, giaNhap, giaDX));
-            } while (cursor.moveToNext());
-        }
-        return sanPhams;
-    }
 
     public boolean existsMaSPKho(String ma) {
         Cursor cursor = this.sqLiteDatabase.rawQuery("SELECT count(*) as 'count' FROM kho WHERE upper(ma) = upper('" + ma + "');", null);
@@ -238,11 +226,6 @@ public class Database extends SQLiteOpenHelper {
 
     public boolean existsTenSPKho(String ten) {
         Cursor cursor = this.sqLiteDatabase.rawQuery("SELECT count(*) as 'count' FROM kho WHERE upper(ten) = upper('" + ten + "');", null);
-        return cursor.moveToFirst() && cursor.getInt(cursor.getColumnIndex("count")) > 0;
-    }
-
-    public boolean existsMaSPDaBan(String ma) {
-        Cursor cursor = this.sqLiteDatabase.rawQuery("SELECT count(*) as 'count' FROM da_ban WHERE upper(ma) = upper('" + ma + "');", null);
         return cursor.moveToFirst() && cursor.getInt(cursor.getColumnIndex("count")) > 0;
     }
 
@@ -283,7 +266,7 @@ public class Database extends SQLiteOpenHelper {
                     stringBuilder.append("AND ( ma LIKE '%").append(str).append("%' OR ten LIKE '%").append(str).append("%')");
                 }
                 stringBuilder.append(" ORDER BY id DESC;");
-                Log.d("CT", "sql: " + stringBuilder.toString());
+                Log.d("TTT", "sql: " + stringBuilder.toString());
                 Cursor cursor = Database.this.sqLiteDatabase.rawQuery(stringBuilder.toString(), null);
                 int stt = 0;
                 while (cursor.moveToNext()) {
@@ -308,7 +291,6 @@ public class Database extends SQLiteOpenHelper {
         asyncTask.execute(new Object[0]);
         return asyncTask;
     }
-
 
 
     public AsyncTask getSPKho(String key, SearchType searchType, final String sortType, DatabaseListener listener) {
@@ -343,7 +325,7 @@ public class Database extends SQLiteOpenHelper {
                     stringBuilder.append("AND ( ma LIKE '%").append(str).append("%' OR ten LIKE '%").append(str).append("%')");
                 }
                 stringBuilder.append(sortType);
-                Log.d("CT", "sql: " + stringBuilder.toString());
+                Log.d("TTT", "sql: " + stringBuilder.toString());
                 Cursor cursor = Database.this.sqLiteDatabase.rawQuery(stringBuilder.toString(), null);
                 int stt = 0;
                 while (cursor.moveToNext()) {
@@ -369,12 +351,6 @@ public class Database extends SQLiteOpenHelper {
         return asyncTask;
     }
 
-
-
-
-    public AsyncTask getSPDaBan(DatabaseListener listener) {
-        return getSPDaBan(null, null, listener);
-    }
 
     public AsyncTask getSPDaBan(String key, SearchType searchType, DatabaseListener listener) {
         final ArrayList<SanPham> sanPhams = new ArrayList();
@@ -407,7 +383,7 @@ public class Database extends SQLiteOpenHelper {
                     stSQL.append(" WHERE tb1.ma LIKE '%").append(str).append("%' OR tb2.ten LIKE '%").append(str).append("%'");
                 }
                 stSQL.append(" ORDER BY tb1.thoi_gian DESC;");
-                Log.d("CT", "sql: " + stSQL.toString());
+                Log.d("TTT", "sql: " + stSQL.toString());
                 Cursor cursor = Database.this.sqLiteDatabase.rawQuery(stSQL.toString(), null);
                 int stt = 0;
                 while (cursor.moveToNext()) {
@@ -426,7 +402,7 @@ public class Database extends SQLiteOpenHelper {
         return asyncTask;
     }
 
-    public AsyncTask getThuChi(final String key, final SearchType searchType, final DatabaseListener listener) {
+    public AsyncTask getThuChi(final String key, final SearchType searchType, final String sortType, final DatabaseListener listener) {
         AsyncTask<Void, Void, Object[]> asyncTask = new AsyncTask<Void, Void, Object[]>() {
             protected Object[] doInBackground(Void... voids) {
                 ArrayList<SanPham> sanPhams = new ArrayList();
@@ -457,8 +433,9 @@ public class Database extends SQLiteOpenHelper {
                 } else if (!(key == null || key.equals(BuildConfig.FLAVOR))) {
                     stringBuilder.append(" WHERE tb1.ma LIKE '%").append(key).append("%' OR tb2.ten LIKE '%").append(key).append("%'");
                 }
-                stringBuilder.append(" GROUP BY tb1.ma;");
-                Log.d("CT", "sql: " + stringBuilder.toString());
+                stringBuilder.append(" GROUP BY tb1.ma ");
+                stringBuilder.append(sortType);
+                Log.d("TTT", "sql: " + stringBuilder.toString());
                 Cursor cursor = Database.this.sqLiteDatabase.rawQuery(stringBuilder.toString(), null);
                 int stt = 0;
                 while (cursor.moveToNext()) {
@@ -508,4 +485,77 @@ public class Database extends SQLiteOpenHelper {
         return -1;
     }
 
+    public void exportDatabse() {
+
+        try {
+
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
+
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//com.android.salesmanager//databases//database.db";
+                String backupDBPath = "attendant_info_backup.db";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDBPath);
+
+                if (currentDB.exists()) {
+                    FileChannel src = new FileInputStream(currentDB).getChannel();
+                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                    dst.transferFrom(src, 0, src.size());
+                    src.close();
+                    dst.close();
+                    Log.d("TTT","dg");
+                }
+            }
+
+        } catch (Exception e) {
+            Log.d("TTT","dg"+e);
+        }
+
+
+    }
+    public void importDB() {
+
+        try {
+            File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
+            File data = Environment.getDataDirectory();
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + "com.android.salesmanager"
+                        + "//databases//" + "database.db";
+                String backupDBPath = "database.db"; // From SD directory.
+                File backupDB = new File(sd, backupDBPath);
+                File currentDB = new File(data, currentDBPath);
+
+                FileChannel src = new FileInputStream(backupDB).getChannel();
+                FileChannel dst = new FileOutputStream(currentDB).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+            }
+        } catch (Exception e) {
+            Log.d("TTT","sffg");
+        }
+    }
+
+    public void exportDB() {
+        try {
+            File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
+            File data = Environment.getDataDirectory();
+
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + "com.android.salesmanager"
+                        + "//databases//" + "database.db";
+                String backupDBPath = "database.db";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+            }
+        } catch (Exception e) {
+        }
+    }
 }

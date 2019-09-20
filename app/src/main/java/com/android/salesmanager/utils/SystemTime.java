@@ -50,7 +50,7 @@ public class SystemTime {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         long l = calendar.getTimeInMillis();
-        Log.d("CT", "getLimDayNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
+        Log.d("TTT", "getLimDayNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
         return new long[]{f, l};
     }
 
@@ -66,7 +66,7 @@ public class SystemTime {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         long l = calendar.getTimeInMillis();
-        Log.d("CT", "getLimWeekNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
+        Log.d("TTT", "getLimWeekNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
         return new long[]{f, l};
     }
 
@@ -82,7 +82,7 @@ public class SystemTime {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         long l = calendar.getTimeInMillis();
-        Log.d("CT", "getLimMonthNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
+        Log.d("TTT", "getLimMonthNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
         return new long[]{f, l};
     }
 
@@ -100,7 +100,7 @@ public class SystemTime {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         long l = calendar.getTimeInMillis();
-        Log.d("CT", "getLimMonthNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
+        Log.d("TTT", "getLimMonthNow: " + getInstance().parseTime(f) + " - " + getInstance().parseTime(calendar.getTimeInMillis()));
         return new long[]{f, l};
     }
 }
